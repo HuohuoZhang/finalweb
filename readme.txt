@@ -1,0 +1,1 @@
+直接node main打开

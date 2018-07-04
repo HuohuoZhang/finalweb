@@ -1,0 +1,68 @@
+<div>
+  <!--<div class='pageTitleCr'>任务表</div>-->
+  <div>
+    <h1>我的事务</h1>
+  </div> 
+
+  <div class="tab">
+    <div class="tab-head">
+      <div style="float:right;"><input @input="search" v-model="searchKey" type="text" placeholder="搜索事务" style="width:6em; margin-right:0; margin-top:0.5em;" /></div>
+      <div style="float:left;">
+        <div v-for="(tab, tabIndex) in tabs"
+             :class="{'tab-head-item-current':tab==tabs[currentTabIndex],'tab-head-item':tab!=tabs[currentTabIndex]}"
+             @click="clickTab(tabIndex)">{{tab.title}}({{tabLists[tabIndex].length}})</div>
+        <div style="clear:both;"></div>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+    <div class="tab-content">
+
+      <div class="section" id="tasks_activeCr" v-show="currentTabIndex==0">
+        <div>
+          <div class="itemCr border" v-for="task in active2">
+            <div style="width:80%; float:left; ">
+              <textarea v-model="task.data.content" :class="{inline:true, read:(!task.ui.focus), unsaved:task.ui.unsaved}" @click="focusTask=task"></textarea>
+            </div>
+            <div style="float:right;">
+              <img src="/front/images/edit.jpg" class="item-edit" @click="task.ui.showMenu=!task.ui.showMenu" />
+              <div class="contextMenu" v-show="task.ui.showMenu">
+                <button @click="completeTask(task)">已完成</button>
+                <button @click="topTask(task, active)">置顶</button>
+                <button @click="deleteTask(task, active)">删除</button>
+                <div style="clear:both;"></div>
+              </div>
+            </div>
+            <div style="clear:both;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="tasks_pastCr" v-show="currentTabIndex==1">
+        <div>
+          <div class="itemCr border" v-for="task in past2">
+            <div style="width:80%; float:left; ">
+              <textarea v-model="task.data.content" :class="{inline:true, read:(!task.ui.focus), unsaved:task.ui.unsaved}" @click="focusTask=task"></textarea>
+            </div>
+            <div style="float:right;">
+              <img src="/front/images/edit.jpg" class="item-edit" @click="task.ui.showMenu=!task.ui.showMenu" />
+              <div class="contextMenu" v-show="task.ui.showMenu">
+                <button @click="deleteTask(task, past)">删除</button>
+                <div style="clear:both;"></div>
+              </div>
+            </div>
+            <div style="clear:both;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div>
+    <h1>添加待办事务</h1>
+  </div>
+  <div style="margin-bottom:2em;">
+    <textarea v-model="newTask.data.content" class="inline" @click="focusTask=null"></textarea>
+    <button @click="createTask" style="float:left;height:53px;">新增事务</button>
+    <div style="clear:both;"></div>
+  </div>
+</div>

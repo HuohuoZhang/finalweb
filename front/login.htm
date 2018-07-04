@@ -1,0 +1,12 @@
+
+<div class="narrow-page">
+  <lefamin-errors :errors="errors" style='margin-bottom:1em;'></lefamin-errors>
+  <div>
+    <input ref="email" type="email" v-model.trim="user.email" placeholder="请输入Email" />
+    <input type="password" v-model="user.pd" placeholder="请输入密码" />
+    <div style="clear:both;"></div>
+    <button id='loginButton' @click.prevent="login">登录</button>
+    <div style="clear:both;"></div>
+  </div>
+</div>
+    
